@@ -9,6 +9,7 @@ import (
 	"google.golang.org/grpc/status"
 )
 
+// NewServer Initiate a GRPC Server
 func NewServer() *GRPCServer {
 	users := map[string]*simple.User{
 		"foo": &simple.User{
@@ -31,10 +32,12 @@ func NewServer() *GRPCServer {
 	return &GRPCServer{users}
 }
 
+// GRPCServer Defines a GRPC Service server
 type GRPCServer struct {
 	users map[string]*simple.User
 }
 
+// GetUser Get user by ID
 func (g *GRPCServer) GetUser(_ context.Context, req *api.GetUserRequest) (*api.GetUserResponse, error) {
 	user, ok := g.users[req.GetUserId()]
 	if !ok {
@@ -50,6 +53,7 @@ func (g *GRPCServer) GetUser(_ context.Context, req *api.GetUserRequest) (*api.G
 	}, nil
 }
 
+// GetUsers Get all users
 func (g *GRPCServer) GetUsers(_ context.Context, _ *api.GetUsersRequest) (*api.GetUsersResponse, error) {
 	users := make([]*api.User, 0, len(g.users))
 	for _, user := range g.users {
