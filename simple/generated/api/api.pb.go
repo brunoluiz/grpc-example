@@ -189,6 +189,7 @@ func (m *GetUsersRequest) XXX_DiscardUnknown() {
 var xxx_messageInfo_GetUsersRequest proto.InternalMessageInfo
 
 type GetUsersResponse struct {
+	// Defines an array of users
 	Users                []*User  `protobuf:"bytes,1,rep,name=users,proto3" json:"users,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`

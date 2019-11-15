@@ -6,7 +6,6 @@ import (
 
 	"github.com/brunoluiz/grpc-example/simple/generated/api"
 	"github.com/brunoluiz/grpc-example/simple/service"
-	"github.com/sirupsen/logrus"
 	"github.com/urfave/cli/v2"
 	"google.golang.org/grpc"
 )
@@ -23,15 +22,19 @@ func main() {
 			},
 		},
 		Action: func(c *cli.Context) error {
+			// Listen to a specific port
 			lis, err := net.Listen("tcp", c.String("grpc-address"))
 			if err != nil {
 				return err
 			}
 
-			logrus.Infof("Listening at %s", c.String("grpc-address"))
-
+			// Create a new GRPC Server
 			s := grpc.NewServer()
+
+			// Register our service implementation against the GRPC service
 			api.RegisterIdentityServer(s, service.NewServer())
+
+			// Start serving
 			return s.Serve(lis)
 		},
 	}

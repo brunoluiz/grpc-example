@@ -54,8 +54,11 @@ func getUsers(c *cli.Context) error {
 		return err
 	}
 	defer conn.Close()
+
+	// Create GRPC Client
 	client := api.NewIdentityClient(conn)
 
+	// Cancels context after 1 second (timeout)
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
 
@@ -69,7 +72,6 @@ func getUsers(c *cli.Context) error {
 	for _, user := range u.Users {
 		logrus.Infof("User: %s", user)
 	}
-
 	return nil
 }
 
@@ -80,8 +82,11 @@ func getUser(c *cli.Context) error {
 		return err
 	}
 	defer conn.Close()
+
+	// Create GRPC Client
 	client := api.NewIdentityClient(conn)
 
+	// Cancels context after 1 second (timeout)
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
 
@@ -94,6 +99,5 @@ func getUser(c *cli.Context) error {
 	}
 
 	logrus.Infof("User: %s", u.User)
-
 	return nil
 }

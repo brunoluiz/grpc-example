@@ -2,6 +2,7 @@ syntax = "proto3";
 
 package api;
 
+// Defines where your go package will be placed after compiled
 option go_package = "generated/api";
 
 service Identity {
@@ -27,5 +28,6 @@ message GetUsersRequest {
 }
 
 message GetUsersResponse {
+  // Defines an array of users
   repeated User users = 1;
 }
