@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package api;
+
+option go_package = "generated/api";
+
+service Identity {
+  rpc GetUser (GetUserRequest) returns (GetUserResponse) {}
+  rpc GetUsers (GetUsersRequest) returns (GetUsersResponse) {}
+}
+
+message User {
+  string user_id = 1;
+  string name = 2;
+  bool active = 3;
+}
+
+message GetUserRequest {
+  string user_id = 1;
+}
+
+message GetUserResponse {
+  User user = 1;
+}
+
+message GetUsersRequest {
+}
+
+message GetUsersResponse {
+  repeated User users = 1;
+}
