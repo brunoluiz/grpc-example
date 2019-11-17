@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/brunoluiz/grpc-example/simple/generated/api"
+	"github.com/brunoluiz/grpc-example/simple/sigint"
 	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
 	"github.com/urfave/cli/v2"
@@ -58,8 +59,9 @@ func getUsers(c *cli.Context) error {
 	// Create GRPC Client
 	client := api.NewIdentityClient(conn)
 
-	// Cancels context after 1 second (timeout)
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	// Cancels context after 1 second (timeout) and handles SIGINT (CTRL + C)
+	ctx := sigint.WithSignalHandler(context.Background())
+	ctx, cancel := context.WithTimeout(ctx, time.Second)
 	defer cancel()
 
 	// Call GRPC Service
@@ -86,8 +88,9 @@ func getUser(c *cli.Context) error {
 	// Create GRPC Client
 	client := api.NewIdentityClient(conn)
 
-	// Cancels context after 1 second (timeout)
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	// Cancels context after 1 second (timeout) and handles SIGINT (CTRL + C)
+	ctx := sigint.WithSignalHandler(context.Background())
+	ctx, cancel := context.WithTimeout(ctx, time.Second)
 	defer cancel()
 
 	// Call GRPC Service

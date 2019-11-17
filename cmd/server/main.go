@@ -6,6 +6,7 @@ import (
 
 	"github.com/brunoluiz/grpc-example/simple/generated/api"
 	"github.com/brunoluiz/grpc-example/simple/service"
+	"github.com/brunoluiz/grpc-example/simple/sigint"
 	"github.com/urfave/cli/v2"
 	"google.golang.org/grpc"
 )
@@ -22,6 +23,9 @@ func main() {
 			},
 		},
 		Action: func(c *cli.Context) error {
+			// Handles SIGINT (CTRL + C), closing the service
+			sigint.OnTriggerExit()
+
 			// Listen to a specific port
 			lis, err := net.Listen("tcp", c.String("grpc-address"))
 			if err != nil {
