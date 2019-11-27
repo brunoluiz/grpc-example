@@ -24,6 +24,7 @@ func main() {
 		},
 		Action: func(c *cli.Context) error {
 			// Handles SIGINT (CTRL + C), closing the service
+			// Do not use this in PROD! Instead use context.Done() and propagate it
 			sigint.OnTriggerExit()
 
 			// Create a new GRPC Server
