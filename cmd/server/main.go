@@ -26,17 +26,17 @@ func main() {
 			// Handles SIGINT (CTRL + C), closing the service
 			sigint.OnTriggerExit()
 
-			// Listen to a specific port
-			lis, err := net.Listen("tcp", c.String("grpc-address"))
-			if err != nil {
-				return err
-			}
-
 			// Create a new GRPC Server
 			s := grpc.NewServer()
 
 			// Register our service implementation against the GRPC service
 			api.RegisterIdentityServer(s, service.NewServer())
+
+			// Listen to a specific port
+			lis, err := net.Listen("tcp", c.String("grpc-address"))
+			if err != nil {
+				return err
+			}
 
 			// Start serving
 			return s.Serve(lis)

@@ -3,7 +3,7 @@ syntax = "proto3";
 package api;
 
 // Defines where your go package will be placed after compiled
-option go_package = "generated/api";
+option go_package = "api";
 
 service Identity {
   rpc GetUser (GetUserRequest) returns (GetUserResponse) {}

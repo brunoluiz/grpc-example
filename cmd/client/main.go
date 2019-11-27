@@ -50,7 +50,7 @@ func main() {
 
 func getUsers(c *cli.Context) error {
 	// Set up a connection to the server.
-	conn, err := grpc.Dial(c.String("grpc-address"), grpc.WithInsecure(), grpc.WithBlock())
+	conn, err := grpc.Dial(c.String("grpc-address"), grpc.WithInsecure())
 	if err != nil {
 		return err
 	}
